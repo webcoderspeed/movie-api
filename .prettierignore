@@ -1,0 +1,13 @@
+package-lock.json
+yarn.lock
+node_modules
+yarn.lock
+.eslintrc.json
+.eslintrc.js
+.prettierrc.json
+tailwind.config.js
+postcss.config.js
+node_modules/*
+.eslintrc.js
+build
+node_modules/
