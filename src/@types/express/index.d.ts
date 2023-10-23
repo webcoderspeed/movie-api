@@ -5,9 +5,6 @@ declare global {
     interface Request {
       user: IUserDocument;
       accessToken: string;
-      refreshToken: string;
-      accessTokenExpiresAt: Date;
-      refreshTokenExpiresAt: Date;
     }
   }
 }
