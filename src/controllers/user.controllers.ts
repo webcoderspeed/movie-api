@@ -34,14 +34,21 @@ export const registerUser = asyncHandler(
           expiresIn: JWT_ACCESS_TOKEN_EXPIRY,
         });
 
-        res.cookie('accessToken', accessToken, {
-          maxAge: JWT_ACCESS_COOKIE_EXPIRY,
-          secure: true,
-          httpOnly: true,
-          sameSite: true,
-        });
+        const userAgent = req.headers['user-agent'];
 
-        res.redirect('/');
+        if (userAgent && userAgent.includes('PostmanRuntime')) {
+          // Return a JSON response
+          res.status(200).json({ accessToken });
+        } else {
+          // Redirect to a page
+          res.cookie('accessToken', accessToken, {
+            maxAge: JWT_ACCESS_COOKIE_EXPIRY,
+            secure: true,
+            httpOnly: true,
+            sameSite: true,
+          });
+          res.redirect('/');
+        }
       } else {
         res.redirect('/login');
       }
@@ -70,21 +77,34 @@ export const loginUser = asyncHandler(async (req: Request, res: Response, next: 
 
     const isPasswordMatch = await bcrypt.compare(password, user.password);
 
-    if (isPasswordMatch) {
-      const accessToken = signJwt(user.id, JWT_ACCESS_TOKEN_SECRET, {
-        expiresIn: JWT_ACCESS_TOKEN_EXPIRY,
-      });
+    if (!req.headers['user-agent']?.includes('Postman')) {
+      if (isPasswordMatch) {
+        const accessToken = signJwt(user.id, JWT_ACCESS_TOKEN_SECRET, {
+          expiresIn: JWT_ACCESS_TOKEN_EXPIRY,
+        });
 
-      res.cookie('accessToken', accessToken, {
-        maxAge: JWT_ACCESS_COOKIE_EXPIRY,
-        secure: true,
-        httpOnly: true,
-        sameSite: true,
-      });
+        res.cookie('accessToken', accessToken, {
+          maxAge: JWT_ACCESS_COOKIE_EXPIRY,
+          secure: true,
+          httpOnly: true,
+          sameSite: true,
+        });
 
-      res.redirect('/');
+        res.redirect('/');
+      } else {
+        res.redirect('/login');
+      }
     } else {
-      res.redirect('/login');
+      // If the user agent is not a browser, return a JSON response
+      if (isPasswordMatch) {
+        const accessToken = signJwt(user.id, JWT_ACCESS_TOKEN_SECRET, {
+          expiresIn: JWT_ACCESS_TOKEN_EXPIRY,
+        });
+
+        res.status(200).json({ accessToken });
+      } else {
+        res.status(401).json({ error: 'Invalid credentials' });
+      }
     }
   } catch (error) {
     next(error);

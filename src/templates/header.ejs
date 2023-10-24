@@ -1,0 +1,21 @@
+<header class="bg-gray-800 text-white py-4 px-4">
+  <div class="container mx-auto flex justify-between items-center flex-wrap md:flex-nowrap">
+    <div class="text-xl font-semibold">
+      <a href="/">
+        Welcome, <%= user.username %>
+      </a>
+    </div>
+    <div class="flex items-center justify-between gap-5 pt-6 md:pt-0">
+      <a href="/create-movie" class="bg-indigo-500 text-white px-4 py-2 rounded-lg hover:bg-indigo-600">
+        Create Movie
+      </a>
+      <a href="/favourite-movies" class="bg-indigo-500 text-white px-4 py-2 rounded-lg hover:bg-indigo-600">
+        Favourite Movie
+      </a>
+      <a href="/logout" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-indigo-600">
+        Logout
+      </a>
+    </div>
+
+  </div>
+</header>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Create Movie</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.7/dist/tailwind.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-gray-200">
+
+  <%- include('header.ejs', { user: user }) %>
+
+    <div class="max-w-md mx-auto mt-10 p-6 bg-white rounded-lg">
+      <h1 class="text-2xl font-semibold text-gray-800 mb-4">Create a Movie</h1>
+      <form action="/movies" method="POST" class="space-y-4">
+        <div class="space-y-2">
+          <label for="movieName" class="block text-sm font-medium text-gray-600">Movie Name</label>
+          <input type="text" name="movieName" id="movieName"
+            class="block w-full p-2 border border-gray-300 rounded-md focus:ring focus:ring-indigo-500" required>
+        </div>
+        <div class="space-y-2">
+          <label for="rating" class="block text-sm font-medium text-gray-600">Rating</label>
+          <input type="number" name="rating" id="rating"
+            class="block w-full p-2 border border-gray-300 rounded-md focus:ring focus:ring-indigo-500" required>
+        </div>
+        <div class="space-y-2">
+          <label for="genre" class="block text-sm font-medium text-gray-600">Genre</label>
+          <input type="text" name="genre" id="genre"
+            class="block w-full p-2 border border-gray-300 rounded-md focus:ring focus:ring-indigo-500" required>
+        </div>
+        <div class="space-y-2">
+          <label for="releaseDate" class="block text-sm font-medium text-gray-600">Release Date</label>
+          <input type="date" name="releaseDate" id="releaseDate"
+            class="block w-full p-2 border border-gray-300 rounded-md focus:ring focus:ring-indigo-500" required>
+        </div>
+        <div class="space-y-2">
+          <label for="releaseDate" class="block text-sm font-medium text-gray-600">Casts</label>
+          <input type="text" name="cast" id="cast"
+            class="block w-full p-2 border border-gray-300 rounded-md focus:ring focus:ring-indigo-500" required
+              placeholder="Tony Stark, Dr Strange"
+            >
+            <small>
+              Every cast name should be seperated by ,
+            </small>
+        </div>
+        <button type="submit" class="bg-indigo-500 text-white font-semibold p-2 rounded-md hover:bg-indigo-600">Create
+          Movie</button>
+      </form>
+    </div>
+
+
+
+</body>
+
+</html>

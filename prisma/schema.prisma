@@ -11,18 +11,10 @@ datasource db {
 }
 
 model User {
-  id          String        @id @default(uuid())
-  email       String        @unique
-  password    String
-}
-
-model UserSession {
-  id           String    @id @default(uuid())
-  accessToken  String
-  refreshToken String
-  accessTokenExpiresAt DateTime
-  refreshTokenExpiresAt DateTime
-  createdAt    DateTime  @default(now())
+  id             String  @id @default(uuid())
+  email          String  @unique
+  password       String
+  favoriteMovies Movie[]
 }
 
 model Movie {
@@ -32,12 +24,13 @@ model Movie {
   genre       String
   releaseDate DateTime
   cast        Cast[]
+  User        User?    @relation(fields: [userId], references: [id])
+  userId      String?
 }
 
 model Cast {
   id      String @id @default(uuid())
   name    String
-  role    String
   movieId String
   movie   Movie  @relation(fields: [movieId], references: [id])
 }

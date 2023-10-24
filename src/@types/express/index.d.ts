@@ -1,10 +1,9 @@
-import { IUserDocument } from '../../types/user.types';
+import { IUser } from '../../interfaces/user.interface';
 
 declare global {
   namespace Express {
     interface Request {
-      user: IUserDocument;
-      accessToken: string;
+      user: IUser;
     }
   }
 }
