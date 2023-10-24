@@ -14,7 +14,6 @@ model User {
   id          String        @id @default(uuid())
   email       String        @unique
   password    String
-  movies      Movie[]
 }
 
 model UserSession {
@@ -32,8 +31,6 @@ model Movie {
   rating      Float
   genre       String
   releaseDate DateTime
-  userId      String
-  user        User     @relation(fields: [userId], references: [id])
   cast        Cast[]
 }
 
